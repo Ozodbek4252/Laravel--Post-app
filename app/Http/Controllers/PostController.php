@@ -7,6 +7,10 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
+    public function __construct() {
+        $this->middleware(['auth'])->only(['store', 'destroy']);
+    }
+
     public function index() 
     {
         $posts = Post::latest()->with('user', 'likes')->paginate(10);
